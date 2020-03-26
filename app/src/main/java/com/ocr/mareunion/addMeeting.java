@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class addMeeting extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     TimePicker picker;
-    Button btnAdd;
+    Button btnAdd, btnCancel;
     EditText sujetEdit,mailEdit;
     String[] country = {"Mario","Luigi","Peach","Toad"};
     String salle;
@@ -36,7 +36,7 @@ public class addMeeting extends AppCompatActivity implements AdapterView.OnItemS
         picker=(TimePicker)findViewById(R.id.timePicker1);
         picker.setIs24HourView(true);
         btnAdd=(Button)findViewById(R.id.addMeeting);
-
+        btnCancel = (Button)findViewById(R.id.cancel);
         spinner();
 
        // if(sujetEdit.getText() != null && mailEdit.getText()!= null ) {
@@ -67,6 +67,14 @@ public class addMeeting extends AppCompatActivity implements AdapterView.OnItemS
             });
      //   }
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(addMeeting.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
