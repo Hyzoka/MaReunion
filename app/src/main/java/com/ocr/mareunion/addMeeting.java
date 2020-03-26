@@ -12,14 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import java.util.ArrayList;
+
 
 public class addMeeting extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     TimePicker picker;
-    ArrayList<Meeting> meetings  = new ArrayList();
     Button btnAdd;
     EditText sujetEdit,mailEdit;
     String[] country = {"Mario","Luigi","Peach","Toad"};
@@ -36,39 +37,47 @@ public class addMeeting extends AppCompatActivity implements AdapterView.OnItemS
         picker.setIs24HourView(true);
         btnAdd=(Button)findViewById(R.id.addMeeting);
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View v) {
-                int hour, minute;
-                if (Build.VERSION.SDK_INT >= 23 ){
-                    hour = picker.getHour();
-                    minute = picker.getMinute();
+        spinner();
+
+       // if(sujetEdit.getText() != null && mailEdit.getText()!= null ) {
+       //     btnAdd.isEnabled();
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    int hour, minute;
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        hour = picker.getHour();
+                        minute = picker.getMinute();
+                    } else {
+                        hour = picker.getCurrentHour();
+                        minute = picker.getCurrentMinute();
+                    }
+
+                    Intent intent = new Intent(addMeeting.this, MainActivity.class);
+                    intent.putExtra("salle", salle);
+                    intent.putExtra("heure", hour);
+                    intent.putExtra("min", String.valueOf(minute));
+                    intent.putExtra("sujet", sujetEdit.getText().toString());
+                    intent.putExtra("mail", mailEdit.getText().toString());
+
+                    setResult(2, intent);
+                    finish();
                 }
-                else{
-                    hour = picker.getCurrentHour();
-                    minute = picker.getCurrentMinute();
-                }
+            });
+     //   }
 
-                Intent intent = new Intent(addMeeting.this,MainActivity.class);
-                intent.putExtra("salle",salle);
-                intent.putExtra("heure",hour);
-                intent.putExtra("min",String.valueOf(minute));
-                intent.putExtra("sujet",sujetEdit.getText().toString());
-                intent.putExtra("mail",mailEdit.getText().toString());
-                setResult(2,intent);
-                finish();
 
-            }
-        });
+    }
 
+    private void spinner(){
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         spin.setOnItemSelectedListener(this);
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, country);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
-
     }
+
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         salle=country[position];
 

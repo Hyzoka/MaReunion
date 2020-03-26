@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import java.util.Collections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
@@ -19,28 +21,17 @@ import java.util.Comparator;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity  {
 
-    ArrayList<Meeting> meetings  = new ArrayList();
+    ArrayList meetings  = new ArrayList();
     ReunionAdapter adapter = new ReunionAdapter(meetings);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         dataMeeting();
-
-        FloatingActionButton myFab = (FloatingActionButton)findViewById(R.id.fab);
-        myFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,addMeeting.class);
-                startActivityForResult(intent, 2);
-            }
-        });
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        recyclerView();
+        floatingBouton();
 
     }
 
@@ -58,7 +49,7 @@ public class MainActivity extends AppCompatActivity  {
 
             Drawable drawable;
 
-            switch (salle.toString()){
+            switch (salle){
                 case "Mario" : drawable = getDrawable(R.drawable.mario);
                 break;
                 case "Luigi" : drawable = getDrawable(R.drawable.luigy);
@@ -69,10 +60,9 @@ public class MainActivity extends AppCompatActivity  {
                 break;
                 default: drawable = getDrawable(R.drawable.ic_delete);
             }
-
-           Meeting meeting = new Meeting(salle,sujet,heure,min,mail,drawable);
-            meetings.add(meeting);
-            adapter.updateData(meetings);
+                Meeting meeting = new Meeting(salle, sujet, heure, min, mail, drawable);
+                meetings.add(meeting);
+                adapter.updateData(meetings);
         }
     }
 
@@ -85,7 +75,23 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
+    private void recyclerView(){
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+    private void floatingBouton(){
+        FloatingActionButton myFab = (FloatingActionButton)findViewById(R.id.fab);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,addMeeting.class);
+                startActivityForResult(intent, 2);
+            }
+        });
 
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
