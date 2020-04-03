@@ -1,29 +1,37 @@
-package com.ocr.mareunion;
+package com.ocr.mareunion.model;
 
 import android.graphics.drawable.Drawable;
 
 import java.util.Comparator;
 
 
-public class Meeting implements Comparable<Meeting>{
+public class Meeting  {
     private String salle;
     private String sujet;
-    private int heure;
-    private String minute;
+    private String time;
     private String mail;
     private Drawable avatar;
+    private String date;
 
 
 
 
-    public Meeting(String salle, String sujet, int heure, String minute, String mail, Drawable avatar) {
+    public Meeting(String salle, String sujet, String time, String mail, Drawable avatar, String date) {
         this.salle = salle;
         this.sujet = sujet;
-        this.heure = heure;
-        this.minute = minute;
+        this.time = time;
         this.mail = mail;
         this.avatar = avatar;
+        this.date = date;
 
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getSalle() {
@@ -42,13 +50,6 @@ public class Meeting implements Comparable<Meeting>{
         this.sujet = sujet;
     }
 
-    public int getHeure() {
-        return heure;
-    }
-
-    public void setHeure(int heure) {
-        this.heure = heure;
-    }
 
     public String getMail() {
         return mail;
@@ -65,24 +66,21 @@ public class Meeting implements Comparable<Meeting>{
     public void setAvatar(Drawable avatar) {
         this.avatar = avatar;
     }
-    public String getMinute() {
-        return minute;
+    public String getTime() {
+        return time;
     }
 
-    public void setMinute(String minute) {
-        this.minute = minute;
+    public void setMinute(String time) {
+        this.time = time;
     }
 
 
-    @Override
-    public int compareTo(Meeting o) {
-        return this.heure - o.heure;
-    }
 
-    public static class meetingRoomomparator implements Comparator<Meeting> {
+
+    public static class meetingDateComparator implements Comparator<Meeting> {
         @Override
         public int compare(Meeting left, Meeting right) {
-            return left.salle.compareTo(right.salle);
+            return left.date.compareTo(right.date);
         }
 
 

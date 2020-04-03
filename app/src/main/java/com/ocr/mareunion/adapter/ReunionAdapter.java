@@ -1,20 +1,19 @@
-package com.ocr.mareunion;
+package com.ocr.mareunion.adapter;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ocr.mareunion.R;
+import com.ocr.mareunion.model.Meeting;
+
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ReunionAdapter extends RecyclerView.Adapter<ReunionAdapter.ViewHolder>  {
@@ -43,9 +42,13 @@ public class ReunionAdapter extends RecyclerView.Adapter<ReunionAdapter.ViewHold
         holder.tvSujet.setText(reunion.getSujet());
         holder.imageView.setImageDrawable(reunion.getAvatar());
 
-        holder.tvHeure.setText(reunion.getHeure()+"h"+ reunion.getMinute());
+        holder.tvHeure.setText(reunion.getTime());
         holder.tvMail.setText(reunion.getMail());
         holder.tvSalle.setText(reunion.getSalle());
+       // if (reunion.getDate().contains(reunion.getDate())){
+       //     holder.viewDate.setVisibility(View.GONE);
+       // }
+        holder.date.setText(reunion.getDate());
 
         //au click sur la recycler on redirige vers les détail avec les données corespondante
         holder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -94,7 +97,8 @@ public class ReunionAdapter extends RecyclerView.Adapter<ReunionAdapter.ViewHold
         public TextView tvHeure;
         public TextView tvSujet;
         public ImageButton delete;
-
+        public TextView date;
+        public LinearLayout viewDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -104,6 +108,9 @@ public class ReunionAdapter extends RecyclerView.Adapter<ReunionAdapter.ViewHold
             this.tvHeure= (TextView) itemView.findViewById(R.id.heure);
             this.tvSujet = (TextView) itemView.findViewById(R.id.sujet);
             this.delete= (ImageButton) itemView.findViewById(R.id.delete);
+            this.date= (TextView) itemView.findViewById(R.id.date);
+            this.viewDate = (LinearLayout) itemView.findViewById(R.id.viewDate);
+
         }
     }
 

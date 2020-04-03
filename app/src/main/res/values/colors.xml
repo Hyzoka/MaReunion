@@ -6,5 +6,8 @@
     <color name="delete">#3D3D3D</color>
     <color name="ic_add_white_background">#A70000</color>
     <color name="colorText">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#D53D3D</color>
+    <color name="green">#31CB46</color>
 
 </resources>

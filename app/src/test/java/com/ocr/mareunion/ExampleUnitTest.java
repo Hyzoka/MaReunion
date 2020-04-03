@@ -1,18 +1,16 @@
 package com.ocr.mareunion;
 
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.ocr.mareunion.model.MeetingTest;
+
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
-import static androidx.core.content.ContextCompat.getDrawable;
 import static org.junit.Assert.*;
 
 /**

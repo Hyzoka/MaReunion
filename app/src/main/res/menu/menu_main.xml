@@ -12,8 +12,21 @@
         <item android:id="@+id/triDate"
             android:title="Date" />
         <item android:id="@+id/triSalle"
-            android:title="Salle" />
-
+            android:title="Salle"
+            app:showAsAction="always">
+            <menu>
+                <item android:id="@+id/mario"
+                    android:title="Mario"/>
+                <item android:id="@+id/peach"
+                    android:title="Peach"/>
+                <item android:id="@+id/luigi"
+                    android:title="Luigi"/>
+                <item android:id="@+id/toad"
+                    android:title="Toad"/>
+            </menu>
+        </item>
+            <item android:id="@+id/clear"
+                android:title="Clear"/>
         </menu>
     </item>
 </menu>

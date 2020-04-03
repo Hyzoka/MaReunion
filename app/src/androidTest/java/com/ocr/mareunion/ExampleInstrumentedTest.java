@@ -56,15 +56,13 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.spinner)).check(matches(withSpinnerText(containsString("Luigi"))));
         onView(withId(R.id.addMeeting)).perform(click());
 
-        onView(withId(R.id.rvReunion)).perform(click());
+             onView(withId(R.id.rvReunion)).perform(click());
         onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.delete))
                 .perform(click());
 
-        onView(withId(R.id.rvReunion)).perform(click());
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.delete))
-                .perform(click());
 
-        assertThat(listMeeting.getAdapter().getItemCount(), equalTo(3));
+
+        assertThat(listMeeting.getAdapter().getItemCount(), equalTo(4));
 
     }
     @Test

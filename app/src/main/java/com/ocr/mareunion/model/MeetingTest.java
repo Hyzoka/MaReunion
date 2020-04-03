@@ -1,6 +1,4 @@
-package com.ocr.mareunion;
-
-import android.graphics.drawable.Drawable;
+package com.ocr.mareunion.model;
 
 import java.util.Comparator;
 

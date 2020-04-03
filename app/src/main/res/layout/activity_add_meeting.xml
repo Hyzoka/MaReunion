@@ -7,79 +7,107 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/tvSalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="50dp"
-        android:textStyle="bold"
-        android:textSize="17dp"
-        android:text="Salle : "
-  />
+
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvSalle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
     </Spinner>
 
 
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:timePickerMode="spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-       android:layout_marginRight="30dp"/>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/btn_date"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginLeft="40dp"
+    android:layout_marginTop="40dp"
+    android:layout_marginRight="40dp"
+    android:paddingVertical="10dp"
+    android:background="@drawable/background_btn_mauve"
+    app:layout_constraintTop_toBottomOf="@+id/spinner">
 
     <TextView
+        android:id="@+id/txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Heure  :"
-        android:textStyle="bold"
-        android:textSize="17dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSalle"/>
-
-
-    <Button
-        android:id="@+id/addMeeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/timePicker1"
-        android:text="Add meeting"
+        android:text="Choice your date Meeting"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etMail" />
-
-
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:paddingHorizontal="0dp"
-        android:text="Cancel"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etMail"
-        app:layout_constraintVertical_bias="0.501" />
+        />
+    <ImageView
+        android:id="@+id/imgDate"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/button_check_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:paddingVertical="10dp"
+        android:background="@drawable/background_btn_mauve"
+        app:layout_constraintTop_toBottomOf="@+id/btn_date">
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choice your time Meeting"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <ImageView
+            android:id="@+id/imgTime"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/button_check_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginLeft="40dp"
+           android:layout_marginRight="40dp"
+           app:layout_constraintTop_toBottomOf="@+id/btn_date">
+
+
+
+
+       </LinearLayout>
+
+
 
     <EditText
         android:id="@+id/etsujet"
@@ -88,17 +116,25 @@
         android:layout_marginLeft="40dp"
         android:hint="Sujet de la réunion "
         android:inputType="textShortMessage"
+        android:background="@drawable/backgroung_edit"
+        android:paddingVertical="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timePicker1"
+        app:layout_constraintTop_toBottomOf="@id/btn_time"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp"
-        tools:layout_editor_absoluteY="350dp" />
+        android:layout_marginTop="40dp"
+        android:elevation="4dp"
+        tools:layout_editor_absoluteY="350dp"
+        android:paddingLeft="15dp" />
 
     <EditText
         android:id="@+id/etMail"
         android:hint="Mail des participants "
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
+        android:paddingVertical="10dp"
+        android:paddingLeft="15dp"
+        android:elevation="4dp"
+        android:background="@drawable/backgroung_edit"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/etsujet"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,5 +142,28 @@
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"/>
 
+
+    <LinearLayout
+        android:id="@+id/addMeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/backgroud_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="serif"
+            android:textSize="16dp"
+            android:text="Add your meeting"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
