@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity  {
+    private int currentScreenOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 
     ArrayList<Meeting> meetingsDate= new ArrayList<>();
     ArrayList<Meeting> meetingsResultat  = new ArrayList<>();
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showCurrentOrientation();
+
 
         mYear= Calendar.getInstance().get(Calendar.YEAR);
         mMonth=Calendar.getInstance().get(Calendar.MONTH)+1;
@@ -124,12 +130,9 @@ public class MainActivity extends AppCompatActivity  {
 
         switch (item.getItemId()) {
             case R.id.triDate:
+                meetingsDate.clear();
                show_Datepicker();
-                RecyclerView recyclerViewDate = (RecyclerView) findViewById(R.id.rvReunion);
-                recyclerViewDate.setHasFixedSize(true);
-                recyclerViewDate.setLayoutManager(new LinearLayoutManager(this));
-                recyclerViewDate.setAdapter(new ReunionAdapter(meetingsDate));
-                adapter.notifyDataSetChanged();
+
                 return true;
             case R.id.mario:
                 meetingsResultat.clear();
@@ -195,43 +198,78 @@ public class MainActivity extends AppCompatActivity  {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void dataMeeting(){
-        Meeting meeting1 = new Meeting("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.mario),"28-04-2020");
+        Meeting meeting1 = new Meeting("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.mario),"28-4-2020");
         meetings.add(meeting1);
-        Meeting meeting2 = new Meeting("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.luigy),"29-04-2020");
+        Meeting meeting2 = new Meeting("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.luigy),"29-4-2020");
         meetings.add(meeting2);
-        Meeting meeting3= new Meeting("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.peach),"30-04-2020");
+        Meeting meeting3= new Meeting("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.peach),"30-4-2020");
         meetings.add(meeting3);
-        Meeting meeting4 = new Meeting("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.toad),"28-04-2020");
+        Meeting meeting4 = new Meeting("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.toad),"28-4-2020");
         meetings.add(meeting4);
     }
 
     private void show_Datepicker() {
-        c = Calendar.getInstance();
-        int mYearParam = mYear;
-        int mMonthParam = mMonth-1;
-        int mDayParam = mDay;
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(ctx,
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        mMonth = monthOfYear + 1;
-                        mYear=year;
-                        mDay=dayOfMonth;
-                        date = mDay + "-" + mMonth;
-                        for (Meeting meeting : meetings){
-                            if (meeting.getDate().equals(date)){
+                        date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        for (Meeting meeting : meetings) {
+                            if (meeting.getDate().equals(date)) {
                                 meetingsDate.add(meeting);
                             }
-
                         }
-                    }
-                }, mYearParam, mMonthParam, mDayParam);
+                        RecyclerView recyclerViewDate = (RecyclerView) findViewById(R.id.rvReunion);
+                        recyclerViewDate.setAdapter(new ReunionAdapter(meetingsDate));
 
+                    }
+
+
+                }, year, mMonth, mDay);
+
+
+
+        RecyclerView recyclerViewDate = (RecyclerView) findViewById(R.id.rvReunion);
+        recyclerViewDate.setHasFixedSize(true);
+        recyclerViewDate.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewDate.setAdapter(new ReunionAdapter(meetingsDate));
+        adapter.notifyDataSetChanged();
         datePickerDialog.show();
+
+    }
+    private void showCurrentOrientation()
+    {
+        // Get current orientation.
+        currentScreenOrientation = getRequestedOrientation();
+
+        // If above method can not get current screen orientation.
+        if(currentScreenOrientation == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+        {
+            // Get screen orientation from activity configuration.
+            currentScreenOrientation = this.getResources().getConfiguration().orientation;
+        }
+
+        // Show different text messages by different screen orientation.
+        StringBuffer msgBuf = new StringBuffer();
+
+        if(currentScreenOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+        {
+        }else if(currentScreenOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        {
+        }else if(currentScreenOrientation == -1)
+        {
+        }
+
     }
 
-
 }
+
+

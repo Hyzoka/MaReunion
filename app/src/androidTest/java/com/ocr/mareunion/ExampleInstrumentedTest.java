@@ -2,9 +2,11 @@ package com.ocr.mareunion;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -18,15 +20,12 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static java.util.EnumSet.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 import static com.ocr.mareunion.TestUtils.withRecyclerView;
@@ -68,32 +67,47 @@ public class ExampleInstrumentedTest {
     @Test
     public void filtreMeetingTest(){
 
+        //filtre by date rooms
+        onView(withId(R.id.action)).perform(click());
+        onView(withText("Date")).perform(click()).perform();
+        onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2020, 4, 28));
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.salle))
+                .check(matches(withText("Mario")));
 
-
-        //filtre by rooms
+        //filtre by mario rooms
         onView(withId(R.id.action)).perform(click());
         onView(withText("Salle")).perform(click());
+        onView(withText("Mario")).perform(click());
+        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.salle))
+                .check(matches(withText("Mario")));
+
+        //filtre by luigi rooms
+        onView(withId(R.id.action)).perform(click());
+        onView(withText("Salle")).perform(click());
+        onView(withText("Luigi")).perform(click());
         onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.salle))
                 .check(matches(withText("Luigi")));
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(1, R.id.salle))
-                .check(matches(withText("Mario")));
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(2, R.id.salle))
+
+        //filtre by Peach rooms
+        onView(withId(R.id.action)).perform(click());
+        onView(withText("Salle")).perform(click());
+        onView(withText("Peach")).perform(click());
+        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.salle))
                 .check(matches(withText("Peach")));
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(3, R.id.salle))
+
+        //filtre by Toad rooms
+        onView(withId(R.id.action)).perform(click());
+        onView(withText("Salle")).perform(click());
+        onView(withText("Toad")).perform(click());
+        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.salle))
                 .check(matches(withText("Toad")));
 
-
-        // filtre by hours
+        //filtre by Clear rooms
         onView(withId(R.id.action)).perform(click());
-        onView(withText("Date")).perform(click());
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.heure))
-                .check(matches(withText("9h" + "10")));
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(1, R.id.heure))
-                .check(matches(withText("10h" + "30")));
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(2, R.id.heure))
-                .check(matches(withText("15h" + "45")));
-        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(3, R.id.heure))
-                .check(matches(withText("16h" + "00")));
+        onView(withText("Clear")).perform(click());
+        onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.salle))
+                .check(matches(withText("Mario")));
 
 
 

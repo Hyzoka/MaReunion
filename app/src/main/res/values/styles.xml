@@ -7,7 +7,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="DialogTheme"  parent="Theme.AppCompat.Light.Dialog">>
-        <item name="colorAccent">#5F6BEF</item>
+    <style name="DialogThemeMario"  parent="Theme.AppCompat.Light.Dialog">>
+        <item name="colorAccent">@color/red</item>
+    </style>
+    <style name="DialogThemeLuigi"  parent="Theme.AppCompat.Light.Dialog">>
+    <item name="colorAccent">@color/green</item>
+</style>
+    <style name="DialogThemePeach"  parent="Theme.AppCompat.Light.Dialog">>
+        <item name="colorAccent">@color/pink</item>
+    </style>
+    <style name="DialogThemeToad"  parent="Theme.AppCompat.Light.Dialog">>
+        <item name="colorAccent">@color/blue</item>
     </style>
 </resources>

@@ -3,12 +3,14 @@ package com.ocr.mareunion;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,11 +45,13 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
     private int mDay;
     private int mHour;
     private int mMinute;
+    private int style;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
+
 
         sujetEdit=(EditText)findViewById(R.id.etsujet);
         mailEdit=(EditText)findViewById(R.id.etMail);
@@ -63,7 +67,12 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
         btnTimePicker.setOnClickListener(this);
 
 
+
+        if (btnAdd.getTranslationY() != 0f)
+            btnAdd.animate().translationY(0f);
+
         spinner();
+
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -71,26 +80,20 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
                 public void onClick(View v) {
 
 
-                    Intent intent = new Intent(addMeeting.this, MainActivity.class);
-                    intent.putExtra("salle", salle);
-                    intent.putExtra("time", txtTime.getText().toString());
-                    intent.putExtra("date",txtDate.getText().toString());
-                    intent.putExtra("sujet", sujetEdit.getText().toString());
-                    intent.putExtra("mail", mailEdit.getText().toString());
 
-                    if (txtTime.getText().toString() == null || txtDate.getText().toString() == null || sujetEdit.getText().toString() == null || mailEdit.getText().toString() == null)
-                        {
+                        Intent intent = new Intent(addMeeting.this, MainActivity.class);
+                        intent.putExtra("salle", salle);
+                        intent.putExtra("time", txtTime.getText().toString());
+                        intent.putExtra("date", txtDate.getText().toString());
+                        intent.putExtra("sujet", sujetEdit.getText().toString());
+                        intent.putExtra("mail", mailEdit.getText().toString());
 
-                            Snackbar.make(getWindow().getDecorView(),"Veuillez remplir tous els champs",Snackbar.LENGTH_SHORT).show();
-                        }
-                    else {
                         setResult(2, intent);
                         finish();
                     }
 
-                }
+
             });
-     //   }
 
 
 
@@ -109,19 +112,19 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
             mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this,R.style.DialogTheme,
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,style,
                     new DatePickerDialog.OnDateSetListener() {
 
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-
                             txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                             imgDate.setVisibility(View.VISIBLE);
 
 
                         }
                     }, year, mMonth, mDay);
+
             datePickerDialog.show();
         }
         if (v == btnTimePicker) {
@@ -132,7 +135,7 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
             mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this,R.style.DialogTheme,
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,style,
                     new TimePickerDialog.OnTimeSetListener() {
 
                         @Override
@@ -156,9 +159,42 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
     }
 
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        salle=country[position];
+        salle = country[position];
+        switch (country[position]) {
+            case "Mario":
+                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_mario);
+                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_mario);
+                btnDatePicker.setBackgroundResource(R.drawable.background_mario_color);
+                btnTimePicker.setBackgroundResource(R.drawable.background_mario_color);
+                style = R.style.DialogThemeMario;
+
+                break;
+            case "Luigi":
+                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_luigi);
+                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_luigi);
+                btnTimePicker.setBackgroundResource(R.drawable.backgroung_luigi_color);
+                btnDatePicker.setBackgroundResource(R.drawable.backgroung_luigi_color);
+                style = R.style.DialogThemeLuigi;
+
+                break;
+            case "Peach":
+                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_peach);
+                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_peach);
+                btnTimePicker.setBackgroundResource(R.drawable.backgroung_peach_color);
+                btnDatePicker.setBackgroundResource(R.drawable.backgroung_peach_color);
+                style = R.style.DialogThemePeach;
+                break;
+            case "Toad":
+                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_toad);
+                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_toad);
+                btnTimePicker.setBackgroundResource(R.drawable.backgroung_toad_color);
+                btnDatePicker.setBackgroundResource(R.drawable.backgroung_toad_color);
+                style = R.style.DialogThemeToad;
+                break;
+        }
 
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

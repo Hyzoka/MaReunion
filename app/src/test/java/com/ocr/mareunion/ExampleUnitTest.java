@@ -21,41 +21,128 @@ import static org.junit.Assert.*;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class ExampleUnitTest {
 
+
+
     @Test
-    public void testFilterSallesMeetingsTest() {
+    public void filtreRoomByMario() {
+
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
 
 
-        final MeetingTest meeting = new MeetingTest("Mario", "Save Peach", 10, "30", "maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr");
-        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter",15,"45","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr");
-        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario",9,"10","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr");
-
+        final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
         final ArrayList<MeetingTest> meetings = new ArrayList<>();
         meetings.add(meeting);
         meetings.add(meeting1);
         meetings.add(meeting2);
+        meetings.add(meeting3);
 
-        Collections.sort(meetings,new MeetingTest.meetingRoomomparator());
+        for (MeetingTest meetingM : meetings){
+            if(meetingM.getSalle().equals("Mario")){
+                meetingsResult.add(meetingM);
+            }
+        }
+        assertSame(meetingsResult.get(0),meeting);
 
-        assertSame(meetings.get(0),meeting1);
-        assertSame(meetings.get(1),meeting);
-        assertSame(meetings.get(2),meeting2);
+
+
+    }
+    @Test
+    public void filtreRoomByLuigi() {
+
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+
+
+        final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
+        final ArrayList<MeetingTest> meetings = new ArrayList<>();
+        meetings.add(meeting);
+        meetings.add(meeting1);
+        meetings.add(meeting2);
+        meetings.add(meeting3);
+
+        for (MeetingTest meetingM : meetings){
+            if(meetingM.getSalle().equals("Luigi")){
+                meetingsResult.add(meetingM);
+            }
+        }
+        assertSame(meetingsResult.get(0),meeting1);
+
+    }
+    @Test
+    public void filtreRoomByPeach() {
+
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+
+
+        final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
+        final ArrayList<MeetingTest> meetings = new ArrayList<>();
+        meetings.add(meeting);
+        meetings.add(meeting1);
+        meetings.add(meeting2);
+        meetings.add(meeting3);
+
+        for (MeetingTest meetingM : meetings){
+            if(meetingM.getSalle().equals("Peach")){
+                meetingsResult.add(meetingM);
+            }
+        }
+        assertSame(meetingsResult.get(0),meeting2);
+
     }
 
     @Test
-    public void testFilterTimeMeetingsTest(){
-        final MeetingTest meeting = new MeetingTest("Mario", "Save Peach", 10, "30", "maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr");
-        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter",15,"45","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr");
-        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario",9,"10","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr");
+    public void filtreRoomByToad() {
 
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+
+
+        final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
         final ArrayList<MeetingTest> meetings = new ArrayList<>();
         meetings.add(meeting);
         meetings.add(meeting1);
         meetings.add(meeting2);
+        meetings.add(meeting3);
 
-        Collections.sort(meetings);
+        for (MeetingTest meetingM : meetings){
+            if(meetingM.getSalle().equals("Toad")){
+                meetingsResult.add(meetingM);
+                }
+            }
+        assertSame(meetingsResult.get(0),meeting3);
 
-        assertSame(meetings.get(0),meeting2);
-        assertSame(meetings.get(1),meeting);
-        assertSame(meetings.get(2),meeting1);
+    }
+
+    @Test
+    public void testFilterDateMeetingsTest(){
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+
+        final ArrayList<MeetingTest> meetingsDate= new ArrayList<>();
+        final ArrayList<MeetingTest> meetings = new ArrayList<>();
+        meetings.add(meeting);
+        meetings.add(meeting1);
+        meetings.add(meeting2);
+        meetings.add(meeting3);
+
+        for (MeetingTest meetingD : meetings) {
+            if (meetingD.getDate().equals("29-4-2020")) {
+                meetingsDate.add(meetingD);
+            }
+        }
+        assertSame(meetingsDate.get(0),meeting1);
+
     }
 }

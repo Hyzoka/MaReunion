@@ -6,20 +6,28 @@ import java.util.Comparator;
 public class MeetingTest implements Comparable<MeetingTest>{
     private String salle;
     private String sujet;
-    private int hour;
-    private String minute;
+    private String time;
     private String mail;
+    private String date;
 
 
 
 
-    public MeetingTest(String salle, String sujet, int hour, String minute, String mail) {
+    public MeetingTest(String salle, String sujet, String time, String mail, String date) {
         this.salle = salle;
         this.sujet = sujet;
-        this.hour = hour;
-        this.minute = minute;
+        this.time = time;
         this.mail = mail;
+        this.date = date;
 
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getSalle() {
@@ -38,13 +46,6 @@ public class MeetingTest implements Comparable<MeetingTest>{
         this.sujet = sujet;
     }
 
-    public int getHeure() {
-        return hour;
-    }
-
-    public void setHeure(int hour) {
-        this.hour = hour;
-    }
 
     public String getMail() {
         return mail;
@@ -54,19 +55,19 @@ public class MeetingTest implements Comparable<MeetingTest>{
         this.mail = mail;
     }
 
-
-        public String getMinute() {
-        return minute;
+    public String getTime() {
+        return time;
     }
 
-    public void setMinute(String minute) {
-        this.minute = minute;
+    public void setMinute(String time) {
+        this.time = time;
     }
 
     @Override
     public int compareTo(MeetingTest o) {
-        return this.hour - o.hour;
+        return 0;
     }
+
 
     public static class meetingRoomomparator implements Comparator<MeetingTest> {
         @Override
