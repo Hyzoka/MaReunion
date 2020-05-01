@@ -7,19 +7,27 @@ import android.widget.TimePicker;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.contrib.PickerActions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.ocr.mareunion.model.Meeting;
+import com.ocr.mareunion.service.DummyNeighbourGenerator;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
@@ -42,6 +50,15 @@ public class ExampleInstrumentedTest {
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
 
+
+    @Test
+    public void myNeighboursList_shouldNotBeEmpty() {
+        // First scroll to the position that needs to be matched and click on it.
+        onView(ViewMatchers.withId(R.id.rvReunion))
+                .check(matches(hasMinimumChildCount(1)));
+    }
+
+
     @Test
     public void addAndDeleteMeetingTest(){
         MainActivity activity = rule.getActivity();
@@ -60,7 +77,6 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.rvReunion)).perform(click());
         onView(withRecyclerView(R.id.rvReunion).atPositionOnView(0, R.id.delete))
                 .perform(click());
-
 
 
         assertThat(listMeeting.getAdapter().getItemCount(), equalTo(4));

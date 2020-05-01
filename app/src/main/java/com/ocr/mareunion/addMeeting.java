@@ -22,6 +22,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
+import com.ocr.mareunion.di.Di;
+import com.ocr.mareunion.service.MeeetingApiService;
+
 import java.util.Calendar;
 
 
@@ -39,11 +42,13 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
     private int mHour;
     private int mMinute;
     private int style;
+    private MeeetingApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
+        mApiService = Di.getNewInstanceApiService();
 
         sujetEdit=(EditText)findViewById(R.id.etsujet);
         mailEdit=(EditText)findViewById(R.id.etMail);

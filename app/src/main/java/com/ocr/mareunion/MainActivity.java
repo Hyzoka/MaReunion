@@ -2,6 +2,7 @@ package com.ocr.mareunion;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,16 +21,16 @@ import java.util.Calendar;
 import java.util.Collections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ocr.mareunion.adapter.ReunionAdapter;
+import com.ocr.mareunion.di.Di;
+import com.ocr.mareunion.event.CreateReunionEvent;
+import com.ocr.mareunion.event.DeleteReunionEvent;
 import com.ocr.mareunion.model.Meeting;
 import com.ocr.mareunion.service.MeeetingApiService;
 
 import java.util.ArrayList;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity  {
     private int currentScreenOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
-    private boolean favorite;
-    private MeeetingApiService mApiService;
     ArrayList<Meeting> meetingsDate= new ArrayList<>();
     ArrayList<Meeting> meetingsResultat  = new ArrayList<>();
     ArrayList<Meeting> meetings  = new ArrayList<>();
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity  {
     private int mYear;
     private int mMonth;
     private int mDay;
-    private Calendar c;
-    private Context ctx = this;
     private String date;
+    private RecyclerView myRecyclerView;
+    private MeeetingApiService mApiService;
 
 
     @Override
@@ -47,13 +48,15 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showCurrentOrientation();
+        mApiService = Di.getReunionApiService();
 
         mYear= Calendar.getInstance().get(Calendar.YEAR);
         mMonth=Calendar.getInstance().get(Calendar.MONTH)+1;
         mDay=Calendar.getInstance().get(Calendar.DAY_OF_MONTH) ;
-
-        dataMeeting();
-        recyclerView();
+        myRecyclerView = findViewById(R.id.rvReunion);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //dataMeeting();
+        initList();
         floatingBouton();
     }
 
@@ -69,18 +72,18 @@ public class MainActivity extends AppCompatActivity  {
             String sujet=data.getStringExtra("sujet");
             String mail=data.getStringExtra("mail");
 
-            Drawable drawable;
+            int drawable;
 
             switch (salle){
-                case "Mario" : drawable = getDrawable(R.drawable.mario);
+                case "Mario" : drawable = R.drawable.mario;
                 break;
-                case "Luigi" : drawable = getDrawable(R.drawable.luigy);
+                case "Luigi" : drawable = R.drawable.luigy;
                 break;
-                case "Peach" : drawable = getDrawable(R.drawable.peach);
+                case "Peach" : drawable = R.drawable.peach;
                 break;
-                case "Toad" : drawable = getDrawable(R.drawable.toad);
+                case "Toad" : drawable = R.drawable.toad;
                 break;
-                default: drawable = getDrawable(R.drawable.ic_delete);
+                default: drawable = R.drawable.ic_delete;
             }
                 Meeting meeting = new Meeting(salle, sujet,time , mail, drawable,date);
                 meetings.add(meeting);
@@ -88,6 +91,23 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+
+    public void initList(){
+
+        meetings = (ArrayList<Meeting>) mApiService.getReunions();
+        ReunionAdapter adapter = new ReunionAdapter(meetings);
+        myRecyclerView.setAdapter(adapter);
+
+    }
+
+    public void onDeleteNeighbour(DeleteReunionEvent event) {
+        mApiService.deleteReunion(event.mReunion);
+        initList();
+    }
+    public void onCreateNeighbour(CreateReunionEvent event) {
+        mApiService.createReunion(event.mReunion);
+        initList();
+    }
 
 
 
@@ -98,14 +118,7 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
-    private void recyclerView(){
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Collections.sort(meetings,new Meeting.meetingDateComparator());
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
+
 
     private void floatingBouton(){
         FloatingActionButton myFab = (FloatingActionButton)findViewById(R.id.fab);
@@ -152,7 +165,7 @@ public class MainActivity extends AppCompatActivity  {
                filtre("Toad");
                 return true;
             case R.id.clear:
-                recyclerView();
+                initList();
                 return true;
 
             default:
@@ -168,13 +181,13 @@ public class MainActivity extends AppCompatActivity  {
    // }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void dataMeeting(){
-        Meeting meeting1 = new Meeting("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.mario),"28-4-2020");
+        Meeting meeting1 = new Meeting("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",R.drawable.mario,"28-4-2020");
         meetings.add(meeting1);
-        Meeting meeting2 = new Meeting("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.luigy),"29-4-2020");
+        Meeting meeting2 = new Meeting("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",R.drawable.luigy,"29-4-2020");
         meetings.add(meeting2);
-        Meeting meeting3= new Meeting("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.peach),"30-4-2020");
+        Meeting meeting3= new Meeting("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",R.drawable.peach,"30-4-2020");
         meetings.add(meeting3);
-        Meeting meeting4 = new Meeting("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.toad),"28-4-2020");
+        Meeting meeting4 = new Meeting("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",R.drawable.toad,"28-4-2020");
         meetings.add(meeting4);
     }
 

@@ -10,13 +10,13 @@ public class Meeting  {
     private String sujet;
     private String time;
     private String mail;
-    private Drawable avatar;
+    private int avatar;
     private String date;
 
 
 
 
-    public Meeting(String salle, String sujet, String time, String mail, Drawable avatar, String date) {
+    public Meeting(String salle, String sujet, String time, String mail, int avatar, String date) {
         this.salle = salle;
         this.sujet = sujet;
         this.time = time;
@@ -59,11 +59,11 @@ public class Meeting  {
         this.mail = mail;
     }
 
-    public Drawable getAvatar() {
+    public int getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Drawable avatar) {
+    public void setAvatar(int avatar) {
         this.avatar = avatar;
     }
     public String getTime() {

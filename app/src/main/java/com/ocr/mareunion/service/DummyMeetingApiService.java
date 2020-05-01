@@ -1,42 +1,32 @@
 package com.ocr.mareunion.service;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.ocr.mareunion.model.Meeting;
 import com.ocr.mareunion.model.MeetingTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DummyMeetingApiService {
-    private List<MeetingTest> mMeetings = DummyNeighbourGenerator.generateNeighbours();
-    private static List<MeetingTest> neighboursFavoris = new ArrayList<>();
+public class DummyMeetingApiService implements MeeetingApiService {
 
+    private List<Meeting> mReunionList = DummyNeighbourGenerator.generateNeighbours();
 
-    public List<MeetingTest> getNeighbours() {
-        return mMeetings;
+    @Override
+    public List<Meeting> getReunions() {
+        return mReunionList;
     }
 
+    @Override
+    public void createReunion(Meeting reunion) {
+        mReunionList.add(reunion);
 
-
-
-    public MeetingTest getNeighbourById(int neighbourId) {
-        for(MeetingTest neighbour : mMeetings){
-            if(neighbour.getId() == neighbourId){
-                return neighbour;
-            }
-        }
-        return null;
     }
 
-
-    public void deleteNeighbour(MeetingTest neighbour) {
-        mMeetings.remove(neighbour);
+    @Override
+    public void deleteReunion(Meeting mReunion) {
+        mReunionList.remove(mReunion);
     }
-
-
-
-    public void addNeighbourFavorite(MeetingTest neighbour) {
-        mMeetings.get(mMeetings.indexOf(neighbour));
-    }
-
-
 }

@@ -40,7 +40,7 @@ public class ReunionAdapter extends RecyclerView.Adapter<ReunionAdapter.ViewHold
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Meeting reunion = mReunion.get(position);
         holder.tvSujet.setText(reunion.getSujet());
-        holder.imageView.setImageDrawable(reunion.getAvatar());
+        holder.imageView.setImageResource(reunion.getAvatar());
 
         holder.tvHeure.setText(reunion.getTime());
         holder.tvMail.setText(reunion.getMail());

@@ -1,25 +1,14 @@
 package com.ocr.mareunion.service;
 
-import com.ocr.mareunion.model.MeetingTest;
-
+import com.ocr.mareunion.model.Meeting;
 import java.util.List;
 
 public interface MeeetingApiService {
-    List<MeetingTest> getNeighbours();
 
-    List<MeetingTest> getNeighbourFavorit();
+    List<Meeting> getReunions();
 
-    MeetingTest getNeighbourById(int neighbourId);
+    void createReunion(Meeting reunion);
 
-
-    /**
-     * Deletes a neighbour
-     * @param neighbour
-     */
-    void deleteNeighbour(MeetingTest neighbour);
-
-    void deleteNeighbourfavortie(MeetingTest neighbour);
-
-    void addNeighbourFavorite(MeetingTest neighbour);
+    void deleteReunion(Meeting mReunion);
 }
 

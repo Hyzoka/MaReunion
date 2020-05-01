@@ -4,12 +4,19 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.ocr.mareunion.di.Di;
+import com.ocr.mareunion.model.Meeting;
 import com.ocr.mareunion.model.MeetingTest;
+import com.ocr.mareunion.service.DummyNeighbourGenerator;
+import com.ocr.mareunion.service.MeeetingApiService;
 
+import org.hamcrest.collection.IsIterableContainingInAnyOrder;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +28,33 @@ import static org.junit.Assert.*;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class ExampleUnitTest {
 
+    private MeeetingApiService service;
+    @Before
+    public void setup() {
+        service = Di.getNewInstanceApiService();
+    }
+
+
+    @Test
+    public void getNeighboursWithSuccess() {
+        List<Meeting> neighbours = service.getReunions();
+        List<Meeting> expectedNeighbours = DummyNeighbourGenerator.listReu;
+        assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
+    }
+
+    @Test
+    public void deleteNeighbourWithSuccess() {
+        Meeting neighbourToDelete = service.getReunions().get(0);
+        service.deleteReunion(neighbourToDelete);
+        assertFalse(service.getReunions().contains(neighbourToDelete));
+    }
+
+    @Test
+    public void addFavoriteWithSuccess() {
+        Meeting neighbourAddedToFavorites = service.getReunions().get(0);
+        service.createReunion(neighbourAddedToFavorites);
+        assertTrue(service.getReunions().contains(neighbourAddedToFavorites));
+    }
 
 
     @Test
