@@ -9,30 +9,27 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.DatePicker;
-import android.widget.Toast;
-
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ocr.mareunion.adapter.ReunionAdapter;
 import com.ocr.mareunion.model.Meeting;
+import com.ocr.mareunion.service.MeeetingApiService;
 
 import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity  {
     private int currentScreenOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
-
+    private boolean favorite;
+    private MeeetingApiService mApiService;
     ArrayList<Meeting> meetingsDate= new ArrayList<>();
     ArrayList<Meeting> meetingsResultat  = new ArrayList<>();
     ArrayList<Meeting> meetings  = new ArrayList<>();
@@ -51,7 +48,6 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         showCurrentOrientation();
 
-
         mYear= Calendar.getInstance().get(Calendar.YEAR);
         mMonth=Calendar.getInstance().get(Calendar.MONTH)+1;
         mDay=Calendar.getInstance().get(Calendar.DAY_OF_MONTH) ;
@@ -59,9 +55,6 @@ public class MainActivity extends AppCompatActivity  {
         dataMeeting();
         recyclerView();
         floatingBouton();
-
-
-
     }
 
     @Override
@@ -98,6 +91,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -123,7 +117,19 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
-
+    private void filtre(String salle){
+        meetingsResultat.clear();
+        for (Meeting meeting : meetings){
+            if(meeting.getSalle().equals(salle)){
+                meetingsResultat.add(meeting);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(new ReunionAdapter(meetingsResultat));
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -132,60 +138,18 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.triDate:
                 meetingsDate.clear();
                show_Datepicker();
-
                 return true;
             case R.id.mario:
-                meetingsResultat.clear();
-                for (Meeting meeting : meetings){
-                    if(meeting.getSalle().equals("Mario")){
-                        meetingsResultat.add(meeting);
-                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                        recyclerView.setAdapter(new ReunionAdapter(meetingsResultat));
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-
+                filtre("Mario");
                 return true;
             case R.id.luigi:
-                meetingsResultat.clear();
-                for (Meeting meeting : meetings){
-                    if(meeting.getSalle().equals("Luigi")){
-                        meetingsResultat.add(meeting);
-                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                        recyclerView.setAdapter(new ReunionAdapter(meetingsResultat));
-                        adapter.notifyDataSetChanged();
-                    }
-                }
+                filtre("Luigi");
                 return true;
             case R.id.peach:
-                meetingsResultat.clear();
-                for (Meeting meeting : meetings){
-                    if(meeting.getSalle().equals("Peach")){
-                        meetingsResultat.add(meeting);
-                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                        recyclerView.setAdapter(new ReunionAdapter(meetingsResultat));
-                        adapter.notifyDataSetChanged();
-                    }
-                }
+               filtre("Peach");
                 return true;
             case R.id.toad:
-                meetingsResultat.clear();
-                for (Meeting meeting : meetings){
-                    if(meeting.getSalle().equals("Toad")){
-                        meetingsResultat.add(meeting);
-                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                        recyclerView.setAdapter(new ReunionAdapter(meetingsResultat));
-                        adapter.notifyDataSetChanged();
-                    }
-                }
+               filtre("Toad");
                 return true;
             case R.id.clear:
                 recyclerView();
@@ -195,7 +159,13 @@ public class MainActivity extends AppCompatActivity  {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+   // private void initList() {
+   //     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvReunion);
+   //     meetings = favorite ? mApiService.getNeighbourFavorit() : mApiService.getNeighbours();
+   //     adapter = new ReunionAdapter(meetings);
+   //     recyclerView.setAdapter(new ReunionAdapter(meetingsResultat));
+//
+   // }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void dataMeeting(){
         Meeting meeting1 = new Meeting("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",getDrawable(R.drawable.mario),"28-4-2020");
@@ -231,8 +201,6 @@ public class MainActivity extends AppCompatActivity  {
                         recyclerViewDate.setAdapter(new ReunionAdapter(meetingsDate));
 
                     }
-
-
                 }, year, mMonth, mDay);
 
 

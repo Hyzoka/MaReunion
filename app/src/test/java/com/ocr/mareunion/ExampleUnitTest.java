@@ -26,10 +26,10 @@ public class ExampleUnitTest {
     @Test
     public void filtreRoomByMario() {
 
-        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
-        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
-        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
-        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",1);
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020",2);
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020",3);
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",4);
 
 
         final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
@@ -52,10 +52,10 @@ public class ExampleUnitTest {
     @Test
     public void filtreRoomByLuigi() {
 
-        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
-        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
-        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
-        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",1);
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020",2);
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020",3);
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",4);
 
 
         final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
@@ -76,10 +76,10 @@ public class ExampleUnitTest {
     @Test
     public void filtreRoomByPeach() {
 
-        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
-        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
-        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
-        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",1);
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020",2);
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020",3);
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",4);
 
 
         final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
@@ -101,10 +101,10 @@ public class ExampleUnitTest {
     @Test
     public void filtreRoomByToad() {
 
-        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
-        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
-        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
-        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",1);
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020",2);
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020",3);
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",4);
 
 
         final ArrayList<MeetingTest> meetingsResult = new ArrayList<>();
@@ -125,10 +125,10 @@ public class ExampleUnitTest {
 
     @Test
     public void testFilterDateMeetingsTest(){
-        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
-        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020");
-        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020");
-        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020");
+        final MeetingTest meeting = new MeetingTest("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",1);
+        final MeetingTest meeting1 = new MeetingTest("Luigi","ghost hunter","10h42","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","29-4-2020",2);
+        final MeetingTest meeting2 = new MeetingTest("Peach","Stop Mario","11h00","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","30-4-2020",3);
+        final MeetingTest meeting3 = new MeetingTest("Toad","Retraite","15h35","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr","28-4-2020",4);
 
         final ArrayList<MeetingTest> meetingsDate= new ArrayList<>();
         final ArrayList<MeetingTest> meetings = new ArrayList<>();

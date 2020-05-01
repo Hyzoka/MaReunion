@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 
 public class MeetingTest implements Comparable<MeetingTest>{
+    private int id;
     private String salle;
     private String sujet;
     private String time;
@@ -13,7 +14,7 @@ public class MeetingTest implements Comparable<MeetingTest>{
 
 
 
-    public MeetingTest(String salle, String sujet, String time, String mail, String date) {
+    public MeetingTest(String salle, String sujet, String time, String mail, String date,int id) {
         this.salle = salle;
         this.sujet = sujet;
         this.time = time;
@@ -68,6 +69,13 @@ public class MeetingTest implements Comparable<MeetingTest>{
         return 0;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public static class meetingRoomomparator implements Comparator<MeetingTest> {
         @Override

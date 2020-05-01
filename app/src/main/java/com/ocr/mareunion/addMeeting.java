@@ -3,17 +3,11 @@ package com.ocr.mareunion;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,7 +21,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
@@ -52,7 +45,6 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
 
-
         sujetEdit=(EditText)findViewById(R.id.etsujet);
         mailEdit=(EditText)findViewById(R.id.etMail);
         btnAdd=(LinearLayout)findViewById(R.id.addMeeting);
@@ -66,21 +58,17 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
 
-
-
         if (btnAdd.getTranslationY() != 0f)
             btnAdd.animate().translationY(0f);
 
         spinner();
 
-
             btnAdd.setOnClickListener(new View.OnClickListener() {
+
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {
-
-
-
+                    if (!txtTime.getText().toString().equals("Choice your time Meeting") && !txtDate.getText().toString().equals("Choice your date Meeting") && sujetEdit.getText().length() > 1 && mailEdit.getText().length()>1) {
                         Intent intent = new Intent(addMeeting.this, MainActivity.class);
                         intent.putExtra("salle", salle);
                         intent.putExtra("time", txtTime.getText().toString());
@@ -91,11 +79,14 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
                         setResult(2, intent);
                         finish();
                     }
+                    else {
+                        //Toast.makeText(this,"Veuillez remplir tous les champs ",Toast.LENGTH_LONG).show();
 
+                    }
+
+                }
 
             });
-
-
 
     }
 
@@ -162,36 +153,27 @@ public class addMeeting extends AppCompatActivity implements View.OnClickListene
         salle = country[position];
         switch (country[position]) {
             case "Mario":
-                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_mario);
-                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_mario);
-                btnDatePicker.setBackgroundResource(R.drawable.background_mario_color);
-                btnTimePicker.setBackgroundResource(R.drawable.background_mario_color);
-                style = R.style.DialogThemeMario;
-
+               custom(R.drawable.backgroung_edit_mario,R.drawable.backgroung_edit_mario,R.style.DialogThemeMario,R.drawable.background_mario_color,R.drawable.background_mario_color);
                 break;
             case "Luigi":
-                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_luigi);
-                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_luigi);
-                btnTimePicker.setBackgroundResource(R.drawable.backgroung_luigi_color);
-                btnDatePicker.setBackgroundResource(R.drawable.backgroung_luigi_color);
-                style = R.style.DialogThemeLuigi;
+                custom(R.drawable.backgroung_edit_luigi,R.drawable.backgroung_edit_luigi,R.style.DialogThemeLuigi,R.drawable.backgroung_luigi_color,R.drawable.backgroung_luigi_color);
 
                 break;
             case "Peach":
-                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_peach);
-                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_peach);
-                btnTimePicker.setBackgroundResource(R.drawable.backgroung_peach_color);
-                btnDatePicker.setBackgroundResource(R.drawable.backgroung_peach_color);
-                style = R.style.DialogThemePeach;
+                custom(R.drawable.backgroung_edit_peach,R.drawable.backgroung_edit_peach,R.style.DialogThemePeach,R.drawable.backgroung_peach_color,R.drawable.backgroung_peach_color);
                 break;
             case "Toad":
-                mailEdit.setBackgroundResource(R.drawable.backgroung_edit_toad);
-                sujetEdit.setBackgroundResource(R.drawable.backgroung_edit_toad);
-                btnTimePicker.setBackgroundResource(R.drawable.backgroung_toad_color);
-                btnDatePicker.setBackgroundResource(R.drawable.backgroung_toad_color);
-                style = R.style.DialogThemeToad;
+                custom(R.drawable.backgroung_edit_toad,R.drawable.backgroung_edit_toad,R.style.DialogThemeToad,R.drawable.backgroung_toad_color,R.drawable.backgroung_toad_color);
                 break;
         }
+
+    }
+    private void custom(int mail, int sujet, int dialog,int time,int date){
+        btnTimePicker.setBackgroundResource(time);
+        btnDatePicker.setBackgroundResource(date);
+        mailEdit.setBackgroundResource(mail);
+        sujetEdit.setBackgroundResource(sujet);
+        style = dialog;
 
     }
 
