@@ -51,7 +51,8 @@ public class ExampleUnitTest {
 
     @Test
     public void addFavoriteWithSuccess() {
-        Meeting neighbourAddedToFavorites = service.getReunions().get(0);
+        final Meeting meetingTest = new Meeting("Mario","Save Peach","9h03","maxime@lesint.fr,lola@cargo.fr,paul@pogba.fr",R.drawable.mario,"28-4-2020");
+        Meeting neighbourAddedToFavorites = meetingTest;
         service.createReunion(neighbourAddedToFavorites);
         assertTrue(service.getReunions().contains(neighbourAddedToFavorites));
     }
